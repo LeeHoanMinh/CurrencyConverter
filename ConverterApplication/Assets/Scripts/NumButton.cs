@@ -11,7 +11,7 @@ public class NumButton : MonoBehaviour
     EventController eventController;
     public void OnClick()
     {
-        eventController.NumbuttonReceiver(buttonName,buttonTag);   
+        eventController.NumbuttonReceiver(buttonName,buttonTag);            
     }
 
     void Start()
@@ -21,6 +21,6 @@ public class NumButton : MonoBehaviour
     }
     void Update()
     {
-        displayName.text = buttonName;        
+        //displayName.text = buttonName;        
     }
 }

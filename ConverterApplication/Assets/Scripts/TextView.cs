@@ -6,13 +6,9 @@ using UnityEngine.UI;
 public class TextView : MonoBehaviour
 {
     string viewText;
-    void Update()
-    {
-        transform.GetComponent<Text>().text = viewText;    
-    }
-
     public void SetText(string text)
     {
         viewText = text;
+        transform.GetComponent<Text>().text = viewText;
     }
 }
