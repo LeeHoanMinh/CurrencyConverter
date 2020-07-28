@@ -11,7 +11,7 @@ public class BaseButton : MonoBehaviour
     bool isSelect;
     public Image baseFlag;
     public int viewIndex; // don't swap it
-    public float dollarValue;
+    public double dollarValue;
     EventController eventController;
     public void Start()
     {
@@ -25,7 +25,7 @@ public class BaseButton : MonoBehaviour
         Swap.SwapString(ref abbre_baseName, ref otherButton.abbre_baseName);
         Swap.SwapString(ref baseName, ref otherButton.baseName);
         Swap.SwapImage(ref baseFlag, ref otherButton.baseFlag);
-        Swap.SwapFloat(ref dollarValue, ref otherButton.dollarValue);
+        Swap.DoubleFloat(ref dollarValue, ref otherButton.dollarValue);
 
     }
 
@@ -40,4 +40,19 @@ public class BaseButton : MonoBehaviour
     {
         eventController.BaseButtonReceiver(viewIndex);
     }
+
+    public void OnClick_OnTab2()
+    {
+        eventController.BaseButtonOnTab2Receiver(viewIndex);
+    }
+
+    public void Attach(BaseButton button)
+    {
+        abbre_baseName = button.abbre_baseName;
+        baseName = button.baseName;
+        isSelect = button.isSelect;
+        dollarValue = button.dollarValue;
+        baseFlag.sprite = button.baseFlag.sprite;
+
+}
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventController:MonoBehaviour
 {
     public ConverterManager converterManager;
+    public Tab2Manager tab2Manager;
     public void NumbuttonReceiver(string buttonName,string buttonTag)
     { 
         if (buttonTag == "Perform") converterManager.Perform();
@@ -33,5 +34,10 @@ public class EventController:MonoBehaviour
         converterManager.secondIndex = temp2;
     }
 
-
+    public void BaseButtonOnTab2Receiver(int viewIndex)
+    {
+        BaseButton button = tab2Manager.baseButtonTab2[viewIndex];
+        converterManager.AddNewBase(button);
+        tab2Manager.DeleteButton(viewIndex);
+    }
 }

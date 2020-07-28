@@ -6,18 +6,21 @@ public class ConverterManager : MonoBehaviour
 {
     const int MAXTEXT = 30;
     public string currentText;
-    public BaseButton[] baseButton = new BaseButton[10]; //base Button 0 is base converter, base Button 1 is converted
+    public int baseButtonCnt;
+    public BaseButton[] baseButton = new BaseButton[20]; //base Button 0 is base converter, base Button 1 is converted
+
     public TextView textView;
     bool isPerform;
-
+    public GameObject tab1, tab2;
     //two Button being chosed
     [HideInInspector]
     public int firstIndex, secondIndex;
-
+    public GameObject horizontal, vertical;
 
 
     private void Start()
     {
+
         firstIndex = secondIndex = -1;
         isPerform = false;
     }
@@ -50,8 +53,8 @@ public class ConverterManager : MonoBehaviour
 
     public void Convert(double number)
     {
-        baseButton[0].money.text = number.ToString();
-        baseButton[1].money.text = (number * baseButton[0].dollarValue / baseButton[1].dollarValue).ToString();
+        baseButton[0].money.text = ((decimal)number).ToString();
+        baseButton[1].money.text = ((decimal)(number * baseButton[0].dollarValue / baseButton[1].dollarValue)).ToString();
     }
 
     public void ResetConverter()
@@ -72,7 +75,6 @@ public class ConverterManager : MonoBehaviour
         StringPreprocess();
         double result = 0;
         string[] strList = currentText.Split(char.Parse(" "));
-
         if (BadPerformanceCheck(strList))
         {
             currentText = "Bad Performance!!!";
@@ -135,7 +137,7 @@ public class ConverterManager : MonoBehaviour
     bool BadPerformanceCheck(string[] strList)
     {
         if (OperatorChecking(strList[0]) || OperatorChecking(strList[strList.Length - 1])) return true;
-        
+       
         for (int i = 0; i < strList.Length - 1; i++)
         {
             if(OperatorChecking(strList[i]) && OperatorChecking(strList[i + 1])) return true;
@@ -154,15 +156,47 @@ public class ConverterManager : MonoBehaviour
 
         for (int i = 0; i < strList.Length - 1; i++)
         {
-            if (OperatorChecking(strList[i]) && (strList[i][0] == '/') && (float.Parse(strList[i + 1]) == 0f)) return true;
+            if (OperatorChecking(strList[i]) && (strList[i][0] == '/') && (double.Parse(strList[i + 1]) == 0f)) return true;
         }
 
         return false;
     }
 
+    public void AddNewBase(BaseButton infoButton)
+    {
+        ++baseButtonCnt;
+        baseButton[baseButtonCnt].Attach(infoButton);
+        baseButton[baseButtonCnt].gameObject.SetActive(true);
+    }
+
+    public void ChangeFromTab1ToTab2()
+    {
+        tab2.SetActive(true);
+        tab1.SetActive(false);
+    }
+
+    public void ChangeFromTab2ToTab1()
+    {
+        tab1.SetActive(true);
+        tab2.SetActive(false);
+    }
+
     public void Update()
     {
-        textView.SetText(currentText);    
+        textView.SetText(currentText);
+        if (Screen.orientation == ScreenOrientation.Portrait)
+        {
+            vertical.SetActive(true);
+            horizontal.SetActive(false);
+        }
+
+        if (Screen.orientation == ScreenOrientation.Landscape)
+        {
+            vertical.SetActive(false);
+            horizontal.SetActive(true);
+        }
     }
+
+ 
 
 }

@@ -27,10 +27,12 @@ static public class Swap
         secondInt = temp;
     }
 
-    static public void SwapFloat(ref float firstFloat, ref float secondFloat)
+    static public void DoubleFloat(ref double firstFloat, ref double secondFloat)
     {
-        float temp = firstFloat;
+        double temp = firstFloat;
         firstFloat = secondFloat;
         secondFloat = temp;
     }
+
+
 }
